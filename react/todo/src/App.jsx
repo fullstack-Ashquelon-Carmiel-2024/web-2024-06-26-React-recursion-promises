@@ -2,11 +2,15 @@ import { useState } from "react";
 import Header from "./components/header/Header";
 import TodoList from "./components/todoList/TodoList";
 
+import Context from './contexts/context';
+
 function App() {
   const [wrapperColor, setWrapperColor] = useState("white");
   const [appTitle, setAppTitle] = useState("Todo App");
 
   const color = "orange";
+  const comment = "I am comment and I am sitting in the Context";
+
   const [todos, setTodos] = useState([
     { id: 1, text: "Run 10 km", completed: true, important: false },
     { id: 22, text: "React for 7 hours", completed: false, important: true },
@@ -62,7 +66,12 @@ function App() {
     setAppTitle(titles[Math.floor(Math.random() * titles.length)]);
   };
 
+  // MISSION01: a) add removeTodo to the Context
+  //  b) Don't pass it as a prop
+  //  c) Go to TodoList
+
   return (
+    <Context.Provider value={{comment: comment}}>
     <div className="App">
       <Header appTitle={appTitle} />
       <div className="wrapper" style={{ background: wrapperColor }}>
@@ -73,6 +82,7 @@ function App() {
                   deleteTodo={removeTodo} />
       </div>
     </div>
+    </Context.Provider>
   );
 }
 
