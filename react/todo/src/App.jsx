@@ -27,6 +27,13 @@ function App() {
 
   }
 
+  const removeTodo = (id) => {
+
+    const newTodos = todos.filter(todo => todo.id !== id );
+    setTodos(newTodos);
+
+  }
+
   console.log(`wrapperColor outside "changeColor" function is ${wrapperColor}`);
 
   const changeColor = () => {
@@ -59,10 +66,11 @@ function App() {
     <div className="App">
       <Header appTitle={appTitle} />
       <div className="wrapper" style={{ background: wrapperColor }}>
-        <button onClick={changeColor}>Change Color</button>
+        <button onClick={changeColor} style={{marginLeft: "2rem"}}>Change Color</button>
         <button onClick={changeTitle}>Change Title</button>
         <TodoList importantColor={color} todos={todos}
-                  changeCompleted={changeCompleted} />
+                  changeCompleted={changeCompleted} 
+                  deleteTodo={removeTodo} />
       </div>
     </div>
   );

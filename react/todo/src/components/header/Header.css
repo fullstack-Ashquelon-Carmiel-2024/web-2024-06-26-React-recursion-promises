@@ -2,5 +2,5 @@
     box-shadow: 5px 5px 5px 5px gray;
     text-align: center;
     padding: 2rem;
-    margin-bottom: 2rem;
+    z-index: 10;
 }

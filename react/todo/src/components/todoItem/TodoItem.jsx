@@ -1,7 +1,7 @@
 import "./TodoItem.css";
 
 export default function TodoItem({ todo, num, importantColor,
-                                   changeCompleted }) {
+                                   changeCompleted, deleteTodo }) {
 
   const { id, text, completed, important } = todo;
   const defaultColor = "white";
@@ -35,7 +35,7 @@ export default function TodoItem({ todo, num, importantColor,
         <strong>{num + ".\xa0"}</strong>
         {text}
       </span>
-      <button className="delete">&times;</button>
+      <button className="delete" onClick={()=> deleteTodo(id)}>&times;</button>
     </li>
   );
 }

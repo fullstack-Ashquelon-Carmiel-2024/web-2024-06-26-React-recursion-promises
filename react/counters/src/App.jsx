@@ -66,9 +66,10 @@ function ColoredButton({myColor}) {
         </button>
 }
 
-function MenuButton({food}) {
+function MenuButton({food, handleClick}) {
 
-  return <button className={"btn size"}>
+  return <button className={"btn size"}
+                 onClick={() => handleClick(food)}>
     {food}
   </button>
 }
@@ -77,6 +78,7 @@ function MenuButton({food}) {
 function App() {
 
   const [ sum, setSum ] = useState(0);
+  const [ orderObj, setOrderObj ] = useState({});
   
   function addIncrement(num) {
 
@@ -85,6 +87,29 @@ function App() {
     setSum(sum + num);
 
   }
+
+  /**
+   * { limonana: 4,
+   *   malawach: 3
+   * }
+   * let foodName = 'malawach'
+   * orderObj.malawach
+   * orderObj[foodName]
+   */
+
+  function orderFood(food) {
+
+    setOrderObj({...orderObj, [food]: orderObj[food] ? orderObj[food]+1 : 1})
+    console.log(`Inside the function "orderFood":\n`,orderObj);
+    
+  }
+  
+  console.log(`Before "return":\n`,orderObj);
+
+  //console.log(Object.entries(orderObj))
+  // elNum0 = ['majadra',6], elNum1 = ['limonana',4] 
+  let showOrderObj = Object.entries(orderObj).map(el => `${el[0]}: ${el[1]}`)
+                                  .join('\n');
 
   return (
     <div className="App">
@@ -96,10 +121,10 @@ function App() {
         <CounterButton increment={1000} add={addIncrement} />
         <span className="result">{sum}</span>
         <div>
-          <MenuButton food="limonana" />
-          <MenuButton food="masbacha" />
-          <MenuButton food="madjadra" />
-          <MenuButton food="malawach" />
+          <MenuButton food="limonana" handleClick={orderFood} />
+          <MenuButton food="masbacha" handleClick={orderFood} />
+          <MenuButton food="madjadra" handleClick={orderFood} />
+          <MenuButton food="malawach" handleClick={orderFood} />
         </div>
         <div>
         
@@ -111,7 +136,7 @@ function App() {
       </div>
       <p className="second result">{`ORDER:`}</p>
       <p className="third result">
-        {`CHALLENGE\nORDER:\n`}
+        {`CHALLENGE\nORDER:\n${showOrderObj}`}
       </p>
 </div>
   );
